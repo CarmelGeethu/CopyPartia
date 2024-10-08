@@ -1,0 +1,53 @@
+<template>
+    <template if:true={isUploadCertificateActived}>
+        <div class="upload-sec"><h1>{head} <span><svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.5 12.5L10.167 17L19.5 8" stroke="#39874C " stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg></span> </h1>
+        </div>
+        <div class="content-set flex">
+            <div class="set"><b>{head1}</b></div>
+            <div class="set-width"><p>{designation}</p></div>
+        </div>
+        <div class="content-set flex">
+            <div class="set"><b>{pgmDate}</b></div>
+            <div class="set-width"><p>{sformattedStartDate} - {sformattedEndDate}</p></div>
+        </div>
+        <div class="content-set flex">
+            <div class="set"><b>{rys}</b></div>
+            <div class="set-width"><b> {sreceivedValue}  <lightning-button class="change-text" label="Change" onclick={handleChangeSchool}></lightning-button></b></div>
+        </div>
+    
+        <div class="upload-sec"> <h1>
+            <!-- onclick={toggleInsideAccordionCourseCertificate} -->
+            Upload Your Course Certificate
+            <!-- <span if:true={isOpenInsideAccordionCourseCertificate}>&#9650;</span>
+            <span if:false={isOpenInsideAccordionCourseCertificate}>&#9660;</span> -->
+         </h1> </div>
+         <div class="accordion-content"></div> <!--if:true={isOpenInsideAccordionCourseCertificate} -->
+            <p>{note}</p>
+            
+            <ul class="bulleted-list">
+                <li>{note1}</li>
+                <li>  {note2}</li>
+                    <li>{note3}</li>
+            </ul>
+         
+            <lightning-card icon-name="custom:custom14" class="upload-file-block">
+                <div class="upload-file">
+                    <input type="file" 
+                    accept=".pdf, .gif, .jpg, .png, .doc, .docx"
+                    label="Attachment" onchange={openfileUpload}>
+                </div>
+                <template if:true={fileData}>
+                    <p>{fileData.filename}</p>
+                </template>
+                <!--<button class="btn-change">Change</button>-->
+            </lightning-card>
+
+        <!-- </div> -->
+        <!-- <div class="upload-certificate">
+            <h2>Upload Certificate</h2>
+            <input type="file" id="certificateUpload" name="certificateUpload"><br>
+            <button onclick={completeUploadCertificate}>Next</button>
+        </div> -->
+    </template>
+    
+</template>

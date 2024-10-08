@@ -1,0 +1,101 @@
+<template>
+    <template if:true={pcrlistnew}>
+        <div class="list-head"><h2>My Requested Training Program Confirmations</h2>
+           <i> You have requested your RYS to confirm that you completed a training.</i></div>
+       
+        <template for:each={pcrList} for:item="pcr">
+            <div key={pcr.Id} >
+                <!-- class="pcr-item" -->
+                <!-- <table border="1">
+                    <tr><th>{pcr.Track_Designation_Type__c}-{pcr.Requested_Account_Name__c}</th><td >
+                    <button data-id={pcr.Certificate_File_Id__c} onclick={handleDownload}>Download</button></td></tr>
+                    <tr ><td>Start Date: {pcr.CCRStartedOnFormatted}</td><td></td></tr>
+                    <tr><td>Completion Date: {pcr.CCRCompletedOnFormatted}</td><td></td></tr>
+                    <template if:true={pcr.isPending}>
+                    <tr><td>Request Sent: {pcr.CreatedDateFormatted}</td><td>
+                    <button data-id={pcr.Id} onclick={handleCancel}>Cancel</button></td></tr></template>
+                    <template if:false={pcr.isPending}>
+                        <tr><td>Request Sent: {pcr.CreatedDateFormatted}</td><td></td></tr></template>
+                    <tr><td>Request Status:<span class={pcr.Handshake__r.State__c}> {pcr.StatusLabel}</span></td><td></td></tr>
+                </table> -->
+                <div class="list-wrap bottom-border">
+                    <div class="pcr-list flex">
+                     <div class="left-content">
+                        <div class={pcr.ClassLabel}>
+    
+                    </div> <div class="list-sec">
+                          <h3>{pcr.DesiLabel} - {pcr.Requested_Account_Name__c} </h3>
+              
+                          <div class="list-data">
+                              <ul>
+                                  <li>
+                                      <div class="ya_row">
+                                          <div class="ya_label">Start Date:</div>
+                                          <div class="ya_value">
+                                              <strong>{pcr.CCRStartedOnFormatted}</strong><br></div>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div class="ya_row">
+                                          <div class="ya_label">Completion Date:</div>
+                                          <div class="ya_value">
+                                              <strong>{pcr.CCRCompletedOnFormatted}</strong><br></div>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div class="ya_row">
+                                          <div class="ya_label">Request Sent:</div>
+                                          <div class="ya_value">
+                                              <strong>{pcr.CreatedDateFormatted}</strong><br></div>
+                                      </div>
+                                  </li>
+                                  <li>
+                                      <div class="ya_row">
+                                          <div class="ya_label">Request Status:</div>
+                                          <div class="ya_value">
+                                              <strong class={pcr.ClassLabel} style="background-image: none;">{pcr.StatusLabel}</strong><br></div>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                      </div>
+                  </div>
+                  <div class="right-content">
+                 <button class="download" data-id={pcr.Certificate_File_Id__c}  onclick={handleDownload}><svg width="45px" height="45px" fill="#4f4f4f" stroke="#4f4f4f" version="1.1" viewBox="0 0 469.33 469.33" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">   <path d="m437.33 181.33h-74.667v-149.33c0-17.643-14.357-32-32-32h-277.33c-17.643 0-32 14.357-32 32v405.33c0 17.643 14.357 32 32 32h298.67c52.928 0 96-43.072 96-96v-181.33c0-5.888-4.779-10.667-10.667-10.667zm-96 10.667v256h-288c-5.877 0-10.667-4.789-10.667-10.667v-405.33c0-5.877 4.789-10.667 10.667-10.667h277.33c5.877 0 10.667 4.789 10.667 10.667v160zm85.334 181.33c0 37.557-27.861 68.715-64 73.909v-244.58h64v170.67z"/>     <path d="m330.67 266.67c0-41.174-33.494-74.667-74.667-74.667s-74.667 33.493-74.667 74.667c0 20.395 8.235 38.88 21.525 52.373-0.032 0.331-0.192 0.619-0.192 0.96v96c0 3.701 1.92 7.125 5.056 9.077 3.147 1.941 7.083 2.112 10.379 0.469l37.899-18.954 37.899 18.944c1.504 0.757 3.136 1.131 4.768 1.131 1.952 0 3.893-0.533 5.611-1.589 3.136-1.952 5.056-5.376 5.056-9.077v-96c0-0.341-0.16-0.629-0.192-0.96 13.29-13.494 21.525-31.98 21.525-52.374zm-42.667 132.07-27.232-13.621c-2.997-1.504-6.539-1.504-9.547 0l-27.221 13.621v-64.715c9.717 4.64 20.533 7.307 32 7.307 11.456 0 22.283-2.667 32-7.307v64.715zm-32-78.741c-29.408 0-53.333-23.925-53.333-53.333s23.925-53.333 53.333-53.333 53.333 23.925 53.333 53.333-23.925 53.333-53.333 53.333z"/>     <path d="m256 224c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667c11.765 0 21.333 9.568 21.333 21.333s-9.568 21.333-21.333 21.333c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667c23.531 0 42.667-19.136 42.667-42.667s-19.136-42.667-42.667-42.667z"/>     <path d="M298.667,64H85.333c-5.888,0-10.667,4.779-10.667,10.667s4.779,10.667,10.667,10.667h213.333 c5.888,0,10.667-4.779,10.667-10.667S304.555,64,298.667,64z"/>     <path d="m266.67 106.67h-181.33c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.666 10.667 10.666h181.33c5.888 0 10.667-4.779 10.667-10.667s-4.778-10.666-10.666-10.666z"/>     <path d="m149.33 149.33h-64c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667h64c5.888 0 10.667-4.779 10.667-10.667s-4.779-10.667-10.667-10.667z"/>     <path d="m298.67 149.33h-106.67c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667h106.67c5.888 0 10.667-4.779 10.667-10.667s-4.779-10.667-10.667-10.667z"/>     <path d="M160,192H85.333c-5.888,0-10.667,4.779-10.667,10.667s4.779,10.667,10.667,10.667H160c5.888,0,10.667-4.779,10.667-10.667 S165.888,192,160,192z"/>     <path d="m149.33 234.67h-64c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.666 10.667 10.666h64c5.888 0 10.667-4.779 10.667-10.667s-4.779-10.666-10.667-10.666z"/>     <path d="m149.33 277.33h-64c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667h64c5.888 0 10.667-4.779 10.667-10.667s-4.779-10.667-10.667-10.667z"/>     <path d="m160 320h-74.667c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.667 10.667 10.667h74.667c5.888 0 10.667-4.779 10.667-10.667s-4.779-10.667-10.667-10.667z"/>     <path d="m170.67 362.67h-85.334c-5.888 0-10.667 4.779-10.667 10.667s4.779 10.666 10.667 10.666h85.333c5.888 0 10.667-4.779 10.667-10.667s-4.778-10.666-10.666-10.666z"/>   </svg>
+              View Certificate</button> 
+              <template if:true={pcr.isPending}>
+              <button class="cancel" data-id={pcr.Id} onclick={handleCancel}>Cancel</button>
+              </template>
+                     </div>
+                     <template if:true={isModalOpen}>
+                        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                            <div class="slds-modal__container">
+                                <header class="slds-modal__header">
+                                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                                            title="Close" onclick={closeModal}>
+                                        <lightning-icon icon-name="utility:close" alternative-text="close" size="small"></lightning-icon>
+                                    </button>
+                                    <h2 class="slds-text-heading_medium">Cancel Program Confirmation Request</h2>
+                                </header>
+                                <div class="slds-modal__content slds-p-around_medium">
+                                    <p>Are you sure you want to cancel your Program Confirmation Request?</p>
+                                </div>
+                                <footer class="slds-modal__footer"></footer>
+                                    <lightning-button variant="destructive" label="Yes" onclick={confirmCancel}></lightning-button>
+                                    <lightning-button variant="neutral" label="No" onclick={closeModal}></lightning-button>
+                                </footer>
+                            </div>
+                        </section>
+                        <div class="slds-backdrop slds-backdrop_open"></div>
+                    </template>
+              </div>
+              
+                      
+            </div>
+        </template>
+    </template>
+    <template if:false={pcrlistnew}>
+        <p>No training program confirmation requests have been submitted.</p>
+    </template>
+</template>

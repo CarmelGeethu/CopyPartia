@@ -1,0 +1,65 @@
+<template>
+    <template if:true={Accounts.length}>
+        <article class="slds-card">
+            <div class="slds-card__header slds-grid">
+                <table class="slds-table slds-table_cell-buffer slds-table_bordered" aria-labelledby="element-with-table-label other-element-with-table-label">
+                    <thead>
+                        <tr> 
+                            <th style="color: #fff;">-</th>
+                            <th>School Name</th>
+                            <th>City</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                        <tbody>
+                            <template for:each={paginatedAccountsWithStates} for:item="account">
+                                <tr key={account.id}>
+                                     <td>
+                                        <button class="slds-button green-btn"
+                                        disabled={account.isButtonDisabled}
+                                        style="color:#a90b0b;"
+                                        data-id={account.id}
+                                        onclick={account.selectHandler}>
+                                        {account.buttonLabel}
+                                        </button>
+                                    </td> 
+                                    <td>{account.schoolName}</td>
+                                    <td>{account.city}</td>
+                                    <td>
+                                        <button class="slds-button red-btn" data-id={account.id} onclick={handleRowAction}>
+                                            Details
+                                        </button>
+                                    </td>
+                                </tr>
+                                <template if:true={account.isExpanded}>
+                                    <tr key={account.detailsKey}>
+                                        <td colspan="4" class="details-cell">
+                                            <c-ya-according-pcr-request-search-rows row-data={account}></c-ya-according-pcr-request-search-rows>
+                                            <!-- <c-uiaccordiansearchrow row-data={account}></c-uiaccordiansearchrow> -->
+                                        </td>
+                                    </tr>
+                                </template>
+                            </template>
+                        </tbody>
+                       
+                
+                </table>
+                
+                </div>
+    
+                <div  class="slds-m-top_medium pagination">
+                    <template for:each={pages} for:item="page">
+                        <button key={page} class="slds-button" onclick={handlePageChange} data-page={page}>
+                            {page}
+                        </button>
+                    </template>
+                </div>
+</article>          
+
+    </template>
+    <template if:false={Accounts.length}>
+        <p></p> 
+    </template>
+ 
+    
+</template>

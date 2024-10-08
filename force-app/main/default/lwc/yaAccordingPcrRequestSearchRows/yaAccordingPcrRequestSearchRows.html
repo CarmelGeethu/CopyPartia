@@ -1,0 +1,49 @@
+<template>
+    <lightning-card>
+        <!-- Conditional rendering for the yellow border box message -->
+        <template if:true={showMessage}>
+            <div class="ya_msg-box">
+                <p>This Program Confirmation Request has not shared any additional details. If you are sure this is your Program Confirmantion Request go ahead and select them. Otherwise, please reach out to your Program Confirmation Request and ask them to put in identifying information.</p>
+            </div>
+        </template>
+
+        <!-- Displaying the row data conditionally -->
+        <div class="ya_display-details">
+            <template if:true={rowData.schoolName}>
+                <p class="ya_row-details"><b>{rowData.schoolName}</b> </p>
+                </template>
+                <template if:true={rowData.isButtonDisabled}>
+                    <p class="ya_row-details">{rowData.schoolName} {note}
+                        {note1}
+                        {note2} {rowData.schoolName} {note3}
+
+                          <a href="/Credentialing/Credentials_for_Schools/What_Happened_to_the_RYS_200_500" class="ya-action ya_with-arrow" target="_blank">
+                            {note4}<span class="ya_regmark"> {note5}</span> 3 {note6}<span class="ya_regmark"> {note5}</span>  {note7}
+                        </a>  </p>
+                    </template>
+                <template if:true={rowData.PrimaryLocation}>
+                    <div class="ya_row-details">
+               <strong>{note8}</strong>
+               <p class="ya_row-details"> {rowData.PrimaryLocation} {rowData.PrimaryLocationAddress}</p>
+            </div>
+                </template>
+                
+                <template if:true={rowData.OtherLocation}>
+                    <div class="ya_row-details">
+               <strong>{note9}</strong>
+               <p class="ya_row-details"> {rowData.OtherLocation} </p>
+            </div>
+                </template>
+                <template if:true={rowData.affiliates}>
+                    <div class="ya_row-details">
+                   <strong>{note10}</strong> 
+                   <p class="ya_row-details">{rowData.affiliates}</a></p>
+                   </div>
+                </template>
+                <!-- <p class="ya_row-details"><strong>{rowData.Name}</strong> </p>
+                <p class="ya_row-details"><strong>Primary Location :</strong> {rowData.Industry}</p>
+                <p class="ya_row-details">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{rowData.Alerts__c}</p>
+                <p class="ya_row-details"><strong>Trainers :</strong> {rowData.Phone}</a></p> -->
+             </div>
+    </lightning-card>
+</template>

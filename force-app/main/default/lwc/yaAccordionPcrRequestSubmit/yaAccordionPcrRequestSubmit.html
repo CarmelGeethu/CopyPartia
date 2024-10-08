@@ -1,0 +1,38 @@
+<template>
+    <template if:true={isGetConfirmationActived}>
+        <div><h1>{head} </h1>
+        </div><table>
+            <tr>
+                <td><b>{head1}</b></td>
+                <td>{sValue}</td>
+            </tr>
+            <tr>
+                <td><b>{pgmDate}</b></td>
+                <td>{sformattedStartDate} - {sformattedEndDate}</td>
+            </tr>
+            <tr>
+                <td><b>{rys}</b></td>
+                <td><b> {sreceivedValue}  <lightning-button label="Change" onclick={handleChangeSchool}></lightning-button></b></td>
+            </tr>
+        </table>
+        <div><h1>{note} </h1>
+        </div><BR>
+        <table>
+            <tr>
+                <td>{sfileData.filename} <lightning-button label="Change" onclick={handleChangeUpload}></lightning-button></td>
+            </tr>
+        </table>
+        <!-- <div class="get-confirmation">
+            <h2>Get Confirmation</h2>
+            <p>Confirm your details and submit the request.</p>
+            <button onclick={submitRequest}>Submit</button>
+        </div> -->
+        <div class="get-confirmation"> <h1>{note1}</h1>
+            <p>{note2}<br>{note3} {receivedValue}  {note4} <br>{note5}</p>
+                    <button onclick={submitRequest}>{note6}</button>
+            
+            
+        </div>
+    </template><lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner>
+   
+</template>

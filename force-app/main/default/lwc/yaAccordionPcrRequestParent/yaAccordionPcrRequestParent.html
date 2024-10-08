@@ -1,0 +1,188 @@
+<template>
+    <div class="accordion" >
+        <div class="accordion-item" >
+            <button class="accordion-header" onclick={toggleAccordionSettings}>
+                {head}
+                <span if:true={isOpenSettings}>&#9650;</span>
+                <span if:false={isOpenSettings}>&#9660;</span>
+            </button>            
+            <div if:false={hideDiv}>
+                <div class="accordion-content" if:true={isOpenSettings}>
+                <c-ya-accordion-pcr-list pcrlistnew={isOpenSettings} 
+                onupdatecomplete={handleUpdateComplete}>
+                </c-ya-accordion-pcr-list>
+             
+                
+                <button class="btn-add-training-program" onclick={showAddTrainingProgram}>{btnName}</button>
+                <template if:true={isAddingProgram}>
+                   
+                    <div class="add-training-program">
+                        <template if:true={isAddingProgrambtn}>  <template if:true={isAddingBtn}> 
+                        <h1>{btnName}</h1>
+                        <div class="multi-step three-steps color-ya">
+                           
+                            <div class="ya_tabs">
+                               
+                                <button class={programDetailsClass} disabled={isButtonDisabledPgm} onclick={handleProgramDetailsClick}>{pgmBtn}</button>
+                                <button class={uploadCertificateClass}  disabled={isButtonDisabled} onclick={handleUploadCertificateClick}>{uplBtn}</button>
+                                <button class={getConfirmationClass} disabled={isButtonDisabledConfirm} onclick={handleGetConfirmationClick}>{subBtn}</button>
+                            </div>
+                      
+                        </div>  </template>
+                    </template>
+                        <div class="step-content">
+                            <template if:true={isProgramDetailsActive}>
+                                <template if:true={items}>
+                                    <template for:each={items} for:item="itm">
+                                        <div key={itm.id} >
+                                            <div><h1 class="no-border">For {itm.CredentialName}</h1></div>
+                                            <div>{trnDes}</div>
+                                            <div class="checked-head">{itm.TrainingRequirement}</div>
+                                            </div></template></template>
+                              
+                                <div class="program-details">
+                                         
+                                    <h2>Select Program Designation<span style="color: red;">*</span></h2>
+                                    <template if:true={showErrorMessagerd}>
+                                        <div class="slds-text-color_error">{errorMessagerd}</div> </template> 
+                                        <template if:true={isrys200}>
+                                            <input type="radio" name="program" value="RYS200" onchange={handleRadioChange}> {rys200}<br>
+                                            <input type="radio" name="program" value="RYS300" disabled onchange={handleRadioChange}>  {rys300}<br>
+                                            <input type="radio" name="program" value="RYS500" onchange={handleRadioChange}>  {rys500}<br>
+                                        </template>
+                                        
+                                        <template if:true={iserys200}>
+                                            <input type="radio" name="program" value="RYS200" onchange={handleRadioChange}>  {rys200}<br>
+                                            <input type="radio" name="program" value="RYS300" onchange={handleRadioChange}>  {rys300}<br>
+                                            <input type="radio" name="program" value="RYS500" onchange={handleRadioChange}> {rys500}<br>
+                                        </template>
+                                        
+                                        <template if:true={isrys500}>
+                                            <input type="radio" name="program" value="RYS500" onchange={handleRadioChange}>  {rys500}<br>
+                                            -----OR-----<br>
+                                            <input type="radio" name="program" value="RYS200" onchange={handleRadioChange}>  {rys200}<br>
+                                            <input type="radio" name="program" value="RYS300" disabled onchange={handleRadioChange}>  {rys300}<br>
+                                        </template>
+                                                      
+                                    <h2>{pgmDate}</h2>
+                                   
+<!-- New Flatpickr Date Fields start-->
+<c-ya-datepicker-calender
+    start-date-label="Select Start Date" 
+    end-date-label="Select End Date" 
+    start-date-placeholder="MM/DD/YYYY" 
+    end-date-placeholder="MM/DD/YYYY"
+    is-start-date-required="true"
+    is-end-date-required="true"
+    is-end-date-disabled="true"
+    onstartdatechange={handleStartDateChange}
+    onenddatechange={handleEndDateChange}>
+</c-ya-datepicker-calender>
+
+<!-- New Flatpickr Date Fields end-->
+
+<h2>{schDes}<img src={customHelpIconUrl} alt="Help" class="help-icon" onclick={openModal}/>
+    
+                                        <template if:true={isModalOpen}>
+                                            <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open">
+                                                <div class="slds-modal__container">
+                                    
+                                                    <!-- Modal/Popup Header -->
+                                                    <header class="slds-modal__header">
+                                                        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                                            <lightning-icon icon-name="utility:close" alternative-text="Close" size="small"></lightning-icon>
+                                                            <span class="slds-assistive-text">Close</span>
+                                                        </button>
+                                                        <h2 class="slds-text-heading_medium">{schDes1}</h2>
+                                                    </header>
+                                    
+                                                    <!-- Modal/Popup Body -->
+                                                    <div class="slds-modal__content slds-p-around_medium">
+                                                        <p>{schDes2}</p>
+                                                    </div>
+                                    
+                                                    
+                                    
+                                                </div>
+                                            </section>
+                                            <div class="slds-backdrop slds-backdrop_open"></div>
+                                        </template></h2>
+                                        <p class="error-message" if:true={showErrorMessage}>{errorMessage}</p>
+                                        <input class="search-bar" type="text" id="schoolName" data-id="inputField" required name="schoolName" oninput={handleInputChange}>&nbsp;&nbsp;&nbsp;  <button class="btn-success" onclick={handleSearch}>Search</button><br>
+                                        <div class="show-hide-link">
+                                            <a href="javascript:void(0);" onclick={toggleShowMore} >
+                                                <template if:false={showMore}>{cityFil1}</template></a>
+                                                <template if:true={showMore}>{cityFil2}<P><input type="text" id="City" name="city" oninput={handleCity}></P></template>
+                                            
+                                            </div>
+                                        <template if:true={triggerSearch}>
+                                            <c-ya-accordion-pcr-request-search 
+                                            onenablebutton={handleEnableButton} 
+                                            onsendvalue={handleValueChange}
+                                            start-date={startDate}
+                                            end-date={endDate}
+                                            selected-rb={selectedValue}
+                                            key={triggerSearchTerm}
+                                            citysearch={City}
+                                            search-term={triggerSearchTerm}>
+                                        </c-ya-accordion-pcr-request-search>
+                                        </template> 
+                                    
+                                </div>
+                            </template>
+                            <template if:true={isUploadCertificateActive}>
+                           <c-ya-accordion-pcr-request-upload-file onsetflag={handleSetFlag} 
+                           is-upload-certificate-active={isUploadCertificateActive} 
+                           received-value={receivedValue} 
+                           credential-name={credentialName}
+                           rb-value={selectedValue} 
+                           formattedend-date={endDate} 
+                           formattedstart-date={startDate}
+                              onsetschoolflag={handleSetSchoolFlag} >
+                        </c-ya-accordion-pcr-request-upload-file>
+                        </template> 
+                        <template if:true={isGetConfirmationActive}>
+                            <c-ya-accordion-pcr-request-submit is-getconfirmationactive={isGetConfirmationActive}
+                             received-value={receivedValue}
+                           credential-name={credentialName}
+                             schoolid-selected={schoolId}
+                              rb-value={selectedValue} 
+                              formattedend-date={endDate} 
+                              formattedstart-date={startDate} 
+                              end-date={endDate} 
+                              start-date={startDate}
+                              file-data={fileData} 
+                              onsetflag={handleSetFlag} 
+                              onsetuploadflag={handleSetUploadFlag} 
+                              onsetschoolflag={handleSetSchoolFlag} 
+                              onsetsubmit={handleSetSubmit}>
+                            </c-ya-accordion-pcr-request-submit>
+                             
+                        </template>
+                            <lightning-spinner if:true={isLoading} alternative-text="Loading" size="small"></lightning-spinner> 
+                                       
+                            <template if:true={isAfterConfirmationActive}>
+                                
+                                <div class="container">
+                                    <h1>{btnName}</h1>
+                                    <div class="alert-success check">
+                                        <strong><svg viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M5.5 12.5L10.167 17L19.5 8" stroke="#39874c" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>{credentialName} Confirmation Request Sent!</strong>
+                                    </div>
+                                    <p>{schDes3} {receivedValue} {schDes4} {receivedValue} {schDes5}</p>
+                                    <!-- <p>A program request has been sent to <strong>Teacher Training With {receivedValue}</strong>. If Teacher Training With {receivedValue} does not respond to this request within 2 weeks, Yoga Alliance will review your request.</p> -->
+                                    <p><a href="#" class="alert-link">{schDes6} </a>{schDes7}</p>
+                                </div>
+                                <div class="ya-button-row">
+                                    <lightning-button label="Enter Teaching Hours"
+                                                      class="btn btn-success"
+                                                      >
+                                    </lightning-button>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </template></div>
+            </div>
+        </div>
+    </div>
+    </template>
